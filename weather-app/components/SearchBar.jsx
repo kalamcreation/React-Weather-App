@@ -1,29 +1,37 @@
 "use client";
 import { useState } from "react";
+import { Search as SearchIcon, Loader2 } from "lucide-react";
 
 export default function SearchBar({ onSearch, loading }) {
   const [city, setCity] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (city.trim()) onSearch(city.trim());
+    if (city.trim() && !loading) onSearch(city.trim());
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
+    <form
+      onSubmit={handleSubmit}
+      className="flex gap-2 max-w-lg mx-auto glass rounded-full p-2 shadow-xl"
+    >
+      <div className="flex items-center pl-3 text-slate-400">
+        <SearchIcon className="h-5 w-5" />
+      </div>
       <input
         type="text"
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        placeholder="Enter city name (e.g. Dhaka)"
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Search city... e.g. Dhaka, London"
+        className="flex-1 bg-transparent px-2 py-2 text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none"
       />
       <button
         type="submit"
         disabled={loading}
-        className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
+        className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
       >
-        {loading ? "..." : "Search"}
+        {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        {loading ? "Searching" : "Search"}
       </button>
     </form>
   );
