@@ -33,7 +33,7 @@ export default function Home() {
     <>
       <BackgroundFX weatherCode={weather?.current?.weather_code} />
 
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
+      <div className="max-w-6xl mx-auto px-4 py-16">
         {/* Hero */}
         <section className="text-center mb-12">
           <motion.div
@@ -42,7 +42,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-slate-700 dark:text-slate-200 mb-6"
           >
             <Sparkles className="h-3.5 w-3.5 text-yellow-500" />
-            Free · No API Key · Real-Time
+            Free · Real-Time
           </motion.div>
 
           <motion.h1
@@ -87,18 +87,33 @@ export default function Home() {
 
         {/* Weather Card */}
         {weather && (
-          <section className="mb-20">
+          <section className="mb-16">
             <WeatherCard data={weather} city={cityName} />
           </section>
         )}
 
         {/* Feature Highlights */}
         {!weather && (
-          <section className="grid sm:grid-cols-3 gap-6 mb-20">
+          <section className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: Zap, title: "Lightning Fast", desc: "Real-time data from Open-Meteo", color: "from-yellow-400 to-orange-500" },
-              { icon: Globe, title: "Global Coverage", desc: "Any city, any country worldwide", color: "from-sky-400 to-blue-600" },
-              { icon: Sparkles, title: "Beautiful UI", desc: "Glassmorphism with dark/light mode", color: "from-pink-400 to-purple-600" },
+              {
+                icon: Zap,
+                title: "Lightning Fast",
+                desc: "Real-time data from Open-Meteo",
+                color: "from-yellow-400 to-orange-500",
+              },
+              {
+                icon: Globe,
+                title: "Global Coverage",
+                desc: "Any city, any country worldwide",
+                color: "from-sky-400 to-blue-600",
+              },
+              {
+                icon: Sparkles,
+                title: "Beautiful UI",
+                desc: "Glassmorphism with dark/light mode",
+                color: "from-pink-400 to-purple-600",
+              },
             ].map(({ icon: Icon, title, desc, color }, i) => (
               <motion.div
                 key={title}
@@ -107,33 +122,21 @@ export default function Home() {
                 transition={{ delay: 0.4 + i * 0.1 }}
                 className="glass rounded-2xl p-6 text-center card-hover"
               >
-                <div className={`w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br ${color} grid place-items-center mb-4 shadow-lg`}>
+                <div
+                  className={`w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br ${color} grid place-items-center mb-4 shadow-lg`}
+                >
                   <Icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="font-bold text-slate-800 dark:text-white mb-1">{title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">{desc}</p>
+                <h3 className="font-bold text-slate-800 dark:text-white mb-1">
+                  {title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {desc}
+                </p>
               </motion.div>
             ))}
           </section>
         )}
-
-        {/* About Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="glass rounded-3xl p-8 md:p-10"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 gradient-text">
-            About This App
-          </h2>
-          <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-            Built with <strong>Next.js 14</strong> and <strong>Tailwind CSS</strong>, powered by{" "}
-            <strong>Open-Meteo</strong> — a completely free weather API with no key required.
-            The interface uses glassmorphism, animated gradients, and supports both{" "}
-            <strong>dark & light</strong> themes for the perfect viewing experience at any time.
-          </p>
-        </motion.section>
       </div>
     </>
   );
