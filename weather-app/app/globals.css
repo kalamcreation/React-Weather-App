@@ -1,37 +1,51 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  html, body {
+    background-color: var(--color-slate-100);
+    color: var(--color-slate-900);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
-  body {
-    @apply antialiased font-sans;
+  .dark html, .dark body {
+    background-color: var(--color-slate-950);
+    color: var(--color-slate-100);
   }
 }
 
+
 @layer utilities {
   .glass {
-    @apply bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl;
+    @apply rounded-3xl shadow-lg transition-all duration-300 bg-white border border-slate-200 dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-xl;
+  }
+  .glass-pill {
+    @apply bg-white/90 border border-slate-200 shadow-lg dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-none;
   }
   .gradient-text {
     @apply bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 dark:from-cyan-300 dark:via-sky-400 dark:to-indigo-400 bg-clip-text text-transparent;
   }
   .btn-primary {
-    @apply px-6 py-2.5 rounded-full font-semibold text-white
-           bg-gradient-to-r from-sky-500 to-indigo-600
-           hover:from-sky-400 hover:to-indigo-500
-           shadow-lg shadow-sky-500/30 hover:shadow-indigo-500/40
-           transition-all duration-300 hover:scale-105 active:scale-95;
+    @apply px-6 py-2.5 rounded-full font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-lg shadow-sky-500/30 hover:shadow-indigo-500/40 transition-all duration-300 hover:scale-105 active:scale-95;
   }
   .card-hover {
     @apply transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl;
   }
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 dark:bg-white/5 dark:border-white/10 dark:text-white dark:placeholder:text-slate-500;
+  }
 }
 
-/* Custom scrollbar */
+
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { @apply bg-slate-100 dark:bg-slate-900; }
-::-webkit-scrollbar-thumb { @apply bg-sky-400 dark:bg-indigo-500 rounded-full; }
+::-webkit-scrollbar-track { background-color: var(--color-slate-100); }
+.dark ::-webkit-scrollbar-track { background-color: var(--color-slate-900); }
+::-webkit-scrollbar-thumb { background-color: var(--color-sky-400); border-radius: 9999px; }
+.dark ::-webkit-scrollbar-thumb { background-color: var(--color-indigo-500); border-radius: 9999px; }
